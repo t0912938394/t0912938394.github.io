@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Openlayers test</title>
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/build/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/css/ol.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <link rel="stylesheet" href="css/css.css">
+
+</head>
+
+<body>
+    <div class="check">
+        <input type="checkbox" id="chk_vungtdm" checked /><label for="chk_vungtdm">Ranh giới khu vực phường</label>
+        <input type="checkbox" id="chk_khupho" checked /><label for="chk_vungtdm">Khu phố</label>
+        <input type="checkbox" id="chk_hodan" checked /><label for="chk_vungtdm">Hộ dân</label>
+        <input type="checkbox" id="chk_ubnd" checked /><label for="chk_ubnd">Ủy ban nhân dân</label>
+        <button type="button" style="float: right; margin-right: 10px;">Đăng Nhập</button>
+    </div>
+    <hr></hr>
+    <div id="map" class="map">
+
+        <div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+            <div id="popup-content"></div>
+
+        </div>
+    </div>
+
+
+    <script src="main.JS"></script>
+    <!-- <script type="text/javascript">
+        var center1= [11871360.412643086, 1199724.1072298482]
+        var map = new ol.Map({
+        view: new ol.View({
+            center: center1,
+            zoom: 7,
+            
+
+        }),
+        layers: [
+         new ol.layer.Tile({
+         source: new ol.source.OSM()
+        })
+         ],
+        target: 'map',
+   
+        });
+        map.on('click',function(e){
+            console.log(e.coordinate);
+        })
+
+    </script> -->
+
+</body>
+
+</html>

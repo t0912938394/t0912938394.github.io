@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>ADMIN</title>
+	<!-- Load Bootstrap CSS -->
+	<link type="text/css" rel="stylesheet" href="/public/css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="/public/css/style.css" />
+	<style>
+.dropbtn {
+  background-color: #f1f1f1;
+  color: #337ab7;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+</style>
+</head>
+<body>
+	<div class="container-fluid">
+  		<div class="row content">
+		 
+    		<div class="col-sm-3 sidenav">
+      			<h4>GIS</h4>
+      				<ul class="nav nav-pills nav-stacked">
+					<li><a href="../../">Trang chủ</a></li>
+			        <li><a href="../hodan/list">Danh sách hộ dân</a></li>
+					<li><a href="../nhankhau">Danh sách nhân khẩu</a></li>
+					<div class="dropdown">
+						<button class="dropbtn">Thống Kê</button>
+						<div class="dropdown-content">
+						<a href="../hodan/thongke">Nghĩa vụ quân sự - tiêm chủng</a>
+						<a href="../hodan/thongketuoi">Thống kê danh sách đủ điều kiện NVQS </a>
+						<a href="../hodan/thongketiemchung">Thống kê danh sách tiêm chủng </a>
+						</div>
+					</div>
+					</li>
+					<li><a href="/logout">Thoát</a></li>
+      				</ul>
+	  		</div>
+	  		<div class="container"  style="width: 220px; padding-right: 15px; margin-left: 330px;"  >      
+	  			 <h4 class="text-center text-danger"  style="font-weight:bold;">DANH SÁCH HỘ DÂN</h4> 
+			  <table class="table table-hover" style="width: auto;">
+			    <thead>
+			      <tr>
+			        <th>ID Hộ Dân</th>
+					<th>Tên chủ hộ</th>
+					<th>Địa chỉ</th>
+					<th>Tình trạng</th>
+                    <th>Ngày đăng ký</th>
+					<th>GEOM</th>
+					<th>ID Khu Phố</th>
+					<th>Trạng thái</th>
+					
+                    <th ><button style="width:80px; height:40px;" onclick="window.location.href = '../hodan/them'" class="glyphicon glyphicon-plus btn btn-primary btn-xs"></button><br><br>
+                    </th>
+			      </tr>
+			    </thead>
+			    <tbody>
+				<% var tong = 0;%>
+			     <% danhsach.rows.forEach(function(hd){ %>
+
+                    <tr>
+                        <td><%= hd.id_hodan %></td>
+                        <td><%= hd.chuho %></td>
+                        <td><%= hd.diachi %></td>
+                        <td><%= hd.tinhtrang %></td>
+                        <td><%= hd.ngaydangky.toDateString() %></td>
+                       	<td><%= hd.geom %></td>
+						<td><%= hd.id_khupho %></td>	
+						<td><%= hd.duyet  %></td>
+                        <td>
+						<button onclick="window.location.href = '../hodan/sua/<%= hd.id_hodan %>';" class="glyphicon glyphicon-pencil btn btn-default btn-xs btn-detail"  >Sửa</button>
+						<button onclick="window.location.href = '../hodan/xoa/<%= hd.id_hodan %>';" class="glyphicon glyphicon-remove btn btn-danger btn-xs btn-delete">Xóa</button>
+						<button onclick="window.location.href = '../hodan/duyet/<%= hd.id_hodan %>';" class="glyphicon glyphicon-pencil btn btn-default btn-xs btn-detail"  >Duyệt</button>
+						<button onclick="window.location.href = '../hodan/chitiet/<%= hd.id_hodan %>';" class="glyphicon glyphicon-pencil btn btn-default btn-xs btn-detail"  >Chi tiết</button>
+					    </td>
+                    </tr>
+
+                    <%  }); %>
+			      </tbody>
+			    </table>
+			</div>
+		</div>
+	</div>
+	  	
+	
+	<script type="text/javascript" src="/public/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/js/bootstrap.min.js"></script>
+	<!-- <script type="text/javascript">
+	$(document).ready(function () {
+		$("#btn-add,#btn-edit").click(function () {
+			$('#myModal').modal('show')
+		});
+	});
+	</script> -->
+</body>
+</html>

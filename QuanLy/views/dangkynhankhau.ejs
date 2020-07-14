@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="UTF-8" />
+	<title>ADMIN</title>
+	<!-- Load Bootstrap CSS -->
+	<link type="text/css" rel="stylesheet" href="/public/css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="/public/css/style.css" />
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/build/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/css/ol.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<style>
+            #map {
+           
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 550px;
+            width: auto;
+            }
+
+            .ol-popup {
+            position: absolute;
+            background-color: white;
+            -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 180px;
+            }
+
+            .ol-popup:after,
+            .ol-popup:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            }
+
+            .ol-popup:after {
+            border-top-color: white;
+            border-width: 10px;
+            left: 48px;
+            margin-left: -10px;
+            }
+
+            .ol-popup:before {
+            border-top-color: #cccccc;
+            border-width: 11px;
+            left: 48px;
+            margin-left: -11px;
+            }
+
+            .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+            }
+            .ol-popup-closer:after {
+            content: "X";
+            }
+    </style>
+</head>
+<body>
+	<div class="container-fluid">
+  		<div class="row content">
+    		<div class="col-sm-3 sidenav">
+      			<h4>GIS</h4>
+      				<ul class="nav nav-pills nav-stacked">
+			        <li ><a href="/nhankhau/danhsach">Danh sách thành viên</a></li>
+			        <li><a href="../../">Trang chủ</a></li>
+                    <li><a href="../dangky/nhankhau">Thêm thành viên</a></li>
+                    <li><a href="/logout">Thoát</a></li>
+      				</ul>
+	  		</div>
+              <h4 class="text-center text-danger"  style="font-weight:bold;">THÊM NHÂN KHẨU</h4> 
+        <form action="" method="POST" enctype="application/x-www-form-urlencoded" style="margin-left:350px;margin-top: 10px;">
+                    <div class="form-group" >
+                        <label for="formGroupExampleInput">Họ tên</label>
+                        <input type="text" class="form-control" name="txtHoten">                 
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Giới tính</label>
+                        <input type="text" class="form-control" name="txtGioitinh" >
+                    </div>
+                     <div class="form-group">
+                        <label for="formGroupExampleInput2">Ngày sinh</label>
+                        <input type="date" class="form-control" name="txtNgaysinh" >
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Nghề nghiệp</label>
+                        <input type="text" class="form-control" name="txtNghenghiep" >
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Quan hệ với chủ hộ</label>
+                        <input type="text" class="form-control"  name="txtQuanhech">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Tình trạng</label>
+                        <input type="text" class="form-control" name="txtTinhtrang" >
+                    </div>
+                    
+                    <button  type="submit" name="btnThem"  style="width:80px; height:40px;"  class="glyphicon glyphicon-plus btn btn-primary btn-xs">thêm</button>
+                    
+	
+</body>
+</html>

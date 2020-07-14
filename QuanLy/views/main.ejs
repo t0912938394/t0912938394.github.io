@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>GIS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+  .fakeimg {
+    height: 200px;
+    background: #aaa;
+  }
+  </style>
+
+
+
+
+        <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/build/ol.js"></script>
+        <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/css/ol.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+        <style>
+            #map {
+            position: relative;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        
+            height: 500px;
+            width: 100%;
+            }
+           
+            .ol-popup {
+            position: absolute;
+            background-color: white;
+            -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 180px;
+            }
+
+            .ol-popup:after,
+            .ol-popup:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            }
+
+            .ol-popup:after {
+            border-top-color: white;
+            border-width: 10px;
+            left: 48px;
+            margin-left: -10px;
+            }
+
+            .ol-popup:before {
+            border-top-color: #cccccc;
+            border-width: 11px;
+            left: 48px;
+            margin-left: -11px;
+            }
+
+            .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+            }
+            .ol-popup-closer:after {
+            content: "X";
+            }
+
+
+
+            
+
+
+
+
+.ol-popup {
+    position: absolute;
+    background-color: white;
+    -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+    padding: 15px;
+    border-radius: 30px;
+    border: 6px solid #cccccc;
+    bottom: 12px;
+    left: -53px;
+    min-width: 250px;
+}
+
+h4 {
+    color: #B71C1C;
+}
+
+h5 {
+    color: #3F51B5;
+}
+
+.ol-popup:after,
+.ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.ol-popup:after {
+    border-top-color: white;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+}
+
+.ol-popup:before {
+    border-top-color: #cccccc;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+}
+
+.ol-popup-closer {
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+}
+
+.ol-popup-closer:after {
+    content: "X";
+}
+
+audio {
+    margin-top: 4px;
+}
+
+.staff {
+    margin-top: 10px;
+}
+
+
+.glyphicon-home::before {
+    margin-left: 15px;
+    color:white;
+}
+
+
+
+
+
+
+
+
+
+
+           
+            
+        </style>
+    </head>
+    <body>
+
+<div class="" style="margin-bottom:0">
+    <img src="public/banner.jpg" alt="" width="100%">
+</div>
+
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+  <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/" style="color:white">TRANG CHỦ</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" style="color:white">GIỚI THIỆU</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dangky/nhankhau" style="color:white">ĐANG KÝ NHÂN KHẨU</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#"> <button type="button" class="btn btn-danger" onclick="window.location.href='../login'" style="float: right; margin-right: 10px;">Đăng nhập</button></a>
+      </li>         
+    </ul>
+  </div>  
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid">
+<div class="row">
+    <div class="col-lg-2 col-md-2">
+            <h3>Lựa chọn</h3>
+            <hr>
+            <p> <input type="checkbox" id="chk_vungtdm" checked /><label for="chk_vungtdm">Ranh giới phường</label></p>
+            <p>  <input type="checkbox" id="chk_khupho" checked /><label for="chk_vungtdm">Khu phố</label></p>
+            <p>  <input type="checkbox" id="chk_hodan" checked /><label for="chk_vungtdm">Hộ dân</label></p>
+            <p>
+            <form class="form-inline active-pink-4">
+                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                    aria-label="Search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+
+            </form>
+            </p>
+            <div id="popup" class="ol-popup">
+                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                <div id="popup-content"></div>
+            </div>
+            <div id="info">&nbsp;</div>
+    </div>
+
+<div class="col-lg-10 col-md-10">
+   
+    <div id="map" class="map" style="box-shadow: 10px 10px 8px midnightblue;">
+        <script>
+            var container = document.getElementById('popup');
+            var content = document.getElementById('popup-content');
+            var closer = document.getElementById('popup-closer');
+            var nome = document.getElementById('nome');
+            /**
+            * Create an overlay to anchor the popup to the map.
+            */
+            var overlay = new ol.Overlay( /** @type {olx.OverlayOptions} */ ({
+                element: container,
+                autoPan: true,
+                autoPanAnimation: {
+                    duration: 250
+                }
+            }));
+            /**
+            * Add a click handler to hide the popup.
+            * @return {boolean} Don't follow the href.
+            */
+            closer.onclick = function() {
+                overlay.setPosition(undefined);
+                closer.blur();
+                return false;
+            };
+
+            var center1 = [11871819.171012152, 1229646.7537582985]
+            var map = new ol.Map({
+                view: new ol.View({
+                    center: center1,
+                    zoom: 11,
+                }),
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                overlays: [overlay],
+                target: 'map',
+                view: new ol.View({
+                    center: [11871819.171012152, 1229646.7537582985],
+                    zoom: 12,
+                })
+            });
+
+
+            var vung_phuong = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    url: 'http://localhost:8080/geoserver/DOAN/wms',
+                    params: { 'LAYERS': 'DOAN:vungranhgioiphuongtxtdm_region' },
+                    serverType: 'geoserver'
+                })
+            });
+            var vung_khu = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    url: 'http://localhost:8080/geoserver/DOAN/wms',
+                    params: { 'LAYERS': 'DOAN:vung_khu_region' },
+                    serverType: 'geoserver'
+                })
+            });
+            
+            var ho_dan = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    url: 'http://localhost:8080/geoserver/DOAN/wms',
+                    params: { 'LAYERS': 'DOAN:ho_dan_point' },
+                    serverType: 'geoserver'
+                })
+            });
+            map.addLayer(vung_phuong);
+            map.addLayer(vung_khu);
+            map.addLayer(ho_dan);
+
+            vung_phuong.setOpacity(0.7);
+            vung_khu.setOpacity(0.7);
+            ho_dan.setOpacity(0.7);
+
+
+
+
+
+
+
+            map.on('singleclick', function(evt) {
+                document.getElementById('info').innerHTML = "";
+                var view = map.getView();
+                var viewResolution = view.getResolution();
+                var source = ho_dan.getSource();
+                var url = source.getFeatureInfoUrl(
+                    evt.coordinate, viewResolution, view.getProjection(), {
+                        'INFO_FORMAT': 'application/json',
+                        'FEATURE_COUNT': 50
+                    });
+
+                if (url) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: 'json',
+                        success: function(n) {
+                            var content = "<table>";
+                            for (var i = 0; i < n.features.length; i++) {
+                                var feature = n.features[i];
+                                var featureAttr = feature.properties;
+                                content += "<tr><td>Tên chủ hộ: " + featureAttr["chuho"] +
+                                    "<tr><td>Địa Chỉ: " + featureAttr["diachi"] +
+                                    "<tr><td>Tình trạng: " + featureAttr["tinhtrang"] +
+                                    "<tr><td>Ngày đăng ký: " + featureAttr["ngaydangky"] +
+                                    "<tr><td>Khu phố " + featureAttr["id_khupho"] +
+                                    "<tr><td>-----------------"+
+                                    "</td></tr>"
+                            }
+                            content += "</table>";
+                            $("#popup-content").html(content);
+                            overlay.setPosition(evt.coordinate);
+                        }
+                    });
+                }
+
+            });
+
+        
+
+
+
+            $("#chk_vungtdm").change(function() {
+                if ($("#chk_vungtdm").is(":checked")) {
+                    vung_phuong.setVisible(true);
+                } else {
+                    vung_phuong.setVisible(false);
+                }
+            });
+
+            $("#chk_khupho").change(function() {
+                if ($("#chk_khupho").is(":checked")) {
+                    vung_khu.setVisible(true);
+                } else {
+                    vung_khu.setVisible(false);
+                }
+            });
+            $("#chk_hodan").change(function() {
+                if ($("#chk_hodan").is(":checked")) {
+                    ho_dan.setVisible(true);
+                } else {
+                    ho_dan.setVisible(false);
+                }
+            });
+        
+
+        </script>
+    </div>
+</div>
+        
+</div>
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="text-center bg-primary" style="margin-top:30px">
+    <div class="container">
+    <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link active" href="/"></a>
+        <a class="nav-item nav-link active" href="#"></a>
+        <a class="nav-item nav-link active" href="#"></a>
+        <a class="nav-item nav-link active" href="#"></a>
+    </nav>
+    </div>
+    <div>
+    Bản quyền ©2020 Văn phòng HĐND-UBND thành phố Thủ Dầu Một<br>
+Địa chỉ: Số 01, đường Quang Trung, phường Phú Cường, thành phố Thủ Dầu Một, tỉnh Bình Dương
+    </div>
+</div>
+    </body>
+</html>

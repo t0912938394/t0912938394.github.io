@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="UTF-8" />
+	<title>ADMIN</title>
+	<!-- Load Bootstrap CSS -->
+	<link type="text/css" rel="stylesheet" href="/public/css/bootstrap.min.css" />
+	<link type="text/css" rel="stylesheet" href="/public/css/style.css" />
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/build/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/css/ol.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<style>
+            #map {
+           
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 550px;
+            width: auto;
+            }
+
+            .ol-popup {
+            position: absolute;
+            background-color: white;
+            -webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            bottom: 12px;
+            left: -50px;
+            min-width: 180px;
+            }
+
+            .ol-popup:after,
+            .ol-popup:before {
+            top: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            }
+
+            .ol-popup:after {
+            border-top-color: white;
+            border-width: 10px;
+            left: 48px;
+            margin-left: -10px;
+            }
+
+            .ol-popup:before {
+            border-top-color: #cccccc;
+            border-width: 11px;
+            left: 48px;
+            margin-left: -11px;
+            }
+
+            .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 8px;
+            }
+            .ol-popup-closer:after {
+            content: "X";
+            }
+    </style>
+</head>
+<body>
+         <h4 class="text-center text-danger"  style="font-weight:bold;">TRANG ĐĂNG KÝ HỘ KHẨU</h4> 
+        <form action="" method="POST" enctype="application/x-www-form-urlencoded" style="margin-left:250px;margin-top: 10px;margin-right: 300px;">
+                    <div class="form-group" >
+                        <label for="formGroupExampleInput">Tên chủ hộ</label>
+                        <input required type="text" class="form-control" name="txtHoten">                 
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Nhập địa chỉ</label>
+                        <input required type="text" class="form-control" name="txtDiachi" >
+                    </div>
+                     <div class="form-group">
+                        <label for="formGroupExampleInput2">Nhập tình trạng</label>
+                        <input required type="text" class="form-control" name="txtTinhtrang" >
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Ngày đăng ký</label>
+                        <input required required type="date" class="form-control" name="txtNgaydk" >
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Tọa độ X</label>
+                        <input required type="text" class="form-control" id="toadox" name="txtX">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Tọa độ Y</label>
+                        <input required type="text" class="form-control" id="toadoy" name="txtY">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">ID Khu phố</label>
+                        <input required type="text" class="form-control" name="txtKhupho" >
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">USER</label>
+                        <input required type="text" class="form-control" name="txtUser" >
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">PASSWORD</label>
+                        <input required type="password" class="form-control" name="txtPass" id="pass" >
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Nhap lai pass word</label>
+                        <input required type="password" class="form-control" name="txtNhapLaipass" id="passlai" >
+                    </div>
+                    <div>
+                        <p id="loi"></p>
+                    </div>
+                    <button  type="submit" name="btnThem"  style="width:80px; height:40px;"  class="glyphicon glyphicon-plus btn btn-primary btn-xs">Đăng ký</button>
+                    <input type="button" value="Lấy Tọa độ hiện tại" style="width:150px; height:40px;"  class="glyphicon glyphicon-plus btn btn-primary btn-xs" onclick="getLocation()" />
+                    <div style="border:1px solid;">
+                        <div id="map" class="map">
+
+                    <div class="check">
+                        <input type="checkbox" id="chk_vungtdm" checked /><label for="chk_vungtdm">Ranh giới khu vực phường</label>
+                        <input type="checkbox" id="chk_khupho" checked /><label for="chk_vungtdm">Khu phố</label>
+                        <input type="checkbox" id="chk_hodan" checked /><label for="chk_vungtdm">Hộ dân</label>
+                        <input type="checkbox" id="chk_ubnd" checked /><label for="chk_ubnd">Ủy ban nhân dân</label>
+                        </div>
+                        <div id="popup" class="ol-popup">
+                            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                            <div id="popup-content"></div>
+                        </div>
+                        <div id="info">&nbsp;</div>
+                        </div>
+                     </div>
+
+</form>
+  <script type="text/javascript" src="/public/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/public/js/bootstrap.min.js"></script>
+     <script>
+        var container = document.getElementById('popup');
+        var content = document.getElementById('popup-content');
+        var closer = document.getElementById('popup-closer');
+        
+        /**
+        * Create an overlay to anchor the popup to the map.
+        */
+        var overlay = new ol.Overlay( /** @type {olx.OverlayOptions} */ ({
+            element: container,
+            autoPan: true,
+            autoPanAnimation: {
+                duration: 250
+            }
+        }));
+        /**
+        * Add a click handler to hide the popup.
+        * @return {boolean} Don't follow the href.
+        */
+        closer.onclick = function() {
+            overlay.setPosition(undefined);
+            closer.blur();
+            return false;
+        };
+
+        var center1 = [11871819.171012152, 1229646.7537582985]
+        var map = new ol.Map({
+            view: new ol.View({
+                center: center1,
+                zoom: 11,
+            }),
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            overlays: [overlay],
+            target: 'map',
+            view: new ol.View({
+                center: [11871819.171012152, 1229646.7537582985],
+                zoom: 13
+            })
+        });
+
+
+        var vung_phuong = new ol.layer.Image({
+            source: new ol.source.ImageWMS({
+                url: 'http://localhost:8080/geoserver/DOAN/wms',
+                params: { 'LAYERS': 'DOAN:vungranhgioiphuongtxtdm_region' },
+                serverType: 'geoserver'
+            })
+        });
+        var vung_khu = new ol.layer.Image({
+            source: new ol.source.ImageWMS({
+                url: 'http://localhost:8080/geoserver/DOAN/wms',
+                params: { 'LAYERS': 'DOAN:vung_khu_region' },
+                serverType: 'geoserver'
+            })
+        });
+       
+        var ho_dan = new ol.layer.Image({
+            source: new ol.source.ImageWMS({
+                url: 'http://localhost:8080/geoserver/DOAN/wms',
+                params: { 'LAYERS': 'DOAN:ho_dan_point' },
+                serverType: 'geoserver'
+            })
+        });
+        map.addLayer(vung_phuong);
+        map.addLayer(vung_khu);
+        map.addLayer(ho_dan);
+
+        vung_phuong.setOpacity(0.3);
+        vung_khu.setOpacity(0.3);
+        ho_dan.setOpacity(0.3);
+
+        map.on('dblclick', function(evt) {
+            document.getElementById('info').innerHTML = "";
+            var view = map.getView();
+            var viewResolution = view.getResolution();
+            var source = ho_dan.getSource();
+            var url = source.getFeatureInfoUrl(
+                evt.coordinate, viewResolution, view.getProjection(), {
+                    'INFO_FORMAT': 'application/json',
+                    'FEATURE_COUNT': 50
+                });
+
+            if (url) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    success: function(n) {
+                        var content = "<table>";
+                        for (var i = 0; i < n.features.length; i++) {
+                            var feature = n.features[i];
+                            var featureAttr = feature.properties;
+                            content += "<tr><td>Tên chủ hộ:" + featureAttr["ten_chu_ho"] +
+                                "</td></tr>"
+                        }
+                        content += "</table>";
+                        $("#popup-content").html(content);
+                        overlay.setPosition(evt.coordinate);
+                    }
+                });
+            }
+
+        });
+        
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else { 
+            }
+            }
+
+            function showPosition(position) {
+            var tdx = position.coords.longitude;
+            var tdy = position.coords.latitude;
+            document.getElementById("toadox").value=tdx;
+            document.getElementById("toadoy").value=tdy;
+            }
+
+
+
+        map.on('click', function (evt) {
+            //document.getElementById("myText").value=(ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'));
+
+            var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+            var lon = lonlat[0];
+            var lat = lonlat[1];
+            document.getElementById("toadox").value=lon;
+            document.getElementById("toadoy").value=lat;
+        });
+
+
+
+        $("#chk_vungtdm").change(function() {
+            if ($("#chk_vungtdm").is(":checked")) {
+                vung_phuong.setVisible(true);
+            } else {
+                vung_phuong.setVisible(false);
+            }
+        });
+
+        $("#chk_khupho").change(function() {
+            if ($("#chk_khupho").is(":checked")) {
+                vung_khu.setVisible(true);
+            } else {
+                vung_khu.setVisible(false);
+            }
+        });
+        $("#chk_hodan").change(function() {
+            if ($("#chk_hodan").is(":checked")) {
+                ho_dan.setVisible(true);
+            } else {
+                ho_dan.setVisible(false);
+            }
+        });
+        $("#chk_ubnd").change(function() {
+            if ($("#chk_ubnd").is(":checked")) {
+                ubnd.setVisible(true);
+            } else {
+                ubnd.setVisible(false);
+            }
+        });
+
+
+        $("#passlai").change(function() {
+          var pass=document.getElementById("pass").value;
+          var passlai=document.getElementById("passlai").value;
+           if(pass!=passlai)
+           {
+                $("#loi").html("Mật khẩu không trùng khớp!mời bạn nhập lại từ đầu");
+                document.getElementById("pass").value="";
+                document.getElementById("passlai").value="";
+           }
+           else
+            {
+                $("#loi").html("");
+                
+           }
+        });
+
+
+    </script>
+	
+</body>
+</html>
